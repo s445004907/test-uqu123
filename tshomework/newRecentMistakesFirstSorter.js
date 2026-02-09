@@ -1,6 +1,7 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 const newRecentMistakesFirstSorter = {
     organize(cards) {
-        // أضفنا أنواع البيانات a و b هنا
         cards.sort((a, b) => {
             const aMistake = !a.wasLastAnswerCorrect();
             const bMistake = !b.wasLastAnswerCorrect();
@@ -28,9 +29,7 @@ const myCards = [
     new CardImpl("Question 4", false)
 ];
 console.log("Original Order:");
-// أضفنا : Card للمتغير c هنا
 myCards.forEach((c) => console.log(`${c.question}: ${c.wasLastAnswerCorrect()}`));
 newRecentMistakesFirstSorter.organize(myCards);
 console.log("\nOrder after organizing (Mistakes First):");
-// أضفنا : Card للمتغير c هنا أيضاً
 myCards.forEach((c) => console.log(`${c.question}: ${c.wasLastAnswerCorrect()}`));
