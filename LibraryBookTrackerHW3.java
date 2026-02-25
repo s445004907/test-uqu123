@@ -2,30 +2,29 @@ import java.io.*;
 import java.util.*;
 import java.time.LocalDateTime;
 
-public class LibraryBookTracker {
+public class LibraryBookTrackerHW3 {
     private static List<Book> catalog = new ArrayList<>();
     private static int correctRecords = 0;
     private static int errorsEncountered = 0;
 
     public static void main(String[] args) {
         if (args.length < 2) {
-            System.out.println("Usage: java LibraryBookTracker <catalog_file> <command> [args]");
+            System.out.println("Usage: java LibraryBookTrackerHW3 <catalog_file> <command> [args]");
             return;
         }
 
         String fileName = args[0];
         String command = args[1];
 
-        
         Thread readerThread = new Thread(() -> {
+            System.out.println("Thread 1: Reading catalog...");
             try (Scanner scanner = new Scanner(new File(fileName))) {
-                System.out.println("Thread 1: Reading catalog...");
                 while (scanner.hasNextLine()) {
                     try {
                         String line = scanner.nextLine();
-                        
                         String[] parts = line.split(",");
-                        if (parts.length < 4) throw new MalformedBookEntryException("Invalid line: " + line);
+                        if (parts.length < 4) throw new Exception("Malformed entry: " + line);
+                        
                         catalog.add(new Book(parts[0], parts[1], parts[2], Integer.parseInt(parts[3])));
                         correctRecords++;
                     } catch (Exception e) {
@@ -38,14 +37,15 @@ public class LibraryBookTracker {
             }
         });
 
-        
         Thread analyzerThread = new Thread(() -> {
-            System.out.println("Thread 2: Analyzing request...");
             try {
+                Thread.sleep(100); 
+                System.out.println("Thread 2: Analyzing request...");
+                
                 if (command.equalsIgnoreCase("search") && args.length > 2) {
                     searchBook(args[2]);
                 } else if (command.equalsIgnoreCase("add") && args.length > 2) {
-                    addBook(args[2]);
+                    System.out.println("Adding book functionality triggered: " + args[2]);
                 }
             } catch (Exception e) {
                 errorsEncountered++;
@@ -55,10 +55,10 @@ public class LibraryBookTracker {
 
         try {
             readerThread.start();
-            readerThread.join();
+            readerThread.join(); 
             
             analyzerThread.start();
-            analyzerThread.join();
+            analyzerThread.join(); 
         } catch (InterruptedException e) {
             e.printStackTrace();
         } finally {
@@ -77,11 +77,6 @@ public class LibraryBookTracker {
             }
         }
         if (!found) System.out.println("Book not found: " + title);
-    }
-
-    private static void addBook(String data) throws Exception {
-        
-        System.out.println("Adding book: " + data);
     }
 
     private static void logError(String message) {

@@ -1,3 +1,9 @@
 [2026-02-20T00:08:51.464191200] INVALID: "Java Programming::9780134685991:5" | MalformedBookEntryException: Title and Author cannot be empty.
 [2026-02-20T00:10:03.709930200] INVALID: "Java Basics::9781234567890:5" | MalformedBookEntryException: Title and Author cannot be empty.
 [2026-02-20T00:12:33.904630800] INVALID: "Book:Author:123:5" | MalformedBookEntryException: ISBN must be exactly 13 digits.
+2026-02-25T23:57:18.586772500 - Catalog Error: Invalid line: Clean Code:Robert Martin:9780132350884:5
+2026-02-25T23:57:18.602715300 - Catalog Error: Invalid line: Effective Java:Joshua Bloch:9780134685991:4
+2026-02-25T23:57:18.604731700 - Catalog Error: Invalid line: Book:Author:123:5
+2026-02-26T00:20:55.563919600 - Catalog Error: Malformed entry: Clean Code:Robert Martin:9780132350884:5
+2026-02-26T00:20:55.576871200 - Catalog Error: Malformed entry: Effective Java:Joshua Bloch:9780134685991:4
+2026-02-26T00:20:55.577883400 - Catalog Error: Malformed entry: Book:Author:123:5
